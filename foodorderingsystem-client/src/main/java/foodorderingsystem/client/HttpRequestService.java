@@ -7,37 +7,49 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Properties;
 
-public class HttpRequestService {
+public class HttpRequestService
+{
 
-  public String sendRequest(String host, String port, Properties properties) throws Exception {
+  public String sendRequest(String host, String port, Properties properties) throws Exception
+  {
     String url = "";
-    try {
+    try
+    {
       StringBuilder parametersBuilder = new StringBuilder("");
-      for (String key : properties.stringPropertyNames()) {
-        if (!key.equals(ClientMain.HOST) && !key.equals(ClientMain.PORT)) {
-          if (key.startsWith("-")) {
+      for (String key : properties.stringPropertyNames())
+      {
+        if (!key.equals(ClientMain.HOST) && !key.equals(ClientMain.PORT))
+        {
+          if (key.startsWith("-"))
+          {
             parametersBuilder.append(key.substring(1));
-          } else {
+          } else
+          {
             parametersBuilder.append(key);
           }
           parametersBuilder.append("=");
           String property = properties.getProperty(key);
-          if (property.startsWith("-")) {
+          if (property.startsWith("-"))
+          {
             parametersBuilder.append(URLEncoder.encode(property.substring(1), "UTF-8"));
-          } else {
+          } else
+          {
             parametersBuilder.append(URLEncoder.encode(property, "UTF-8"));
           }
           parametersBuilder.append("&");
         }
       }
-      if (parametersBuilder.charAt(parametersBuilder.length() - 1) == '&') {
+      if (parametersBuilder.charAt(parametersBuilder.length() - 1) == '&')
+      {
         parametersBuilder.deleteCharAt(parametersBuilder.length() - 1);
       }
 
-      if (parametersBuilder.toString().length() > 0) {
-        url = "http://" + host + ":" + port + "/foodOrderingSystem/?" + parametersBuilder.toString();
-      } else {
-        url = "http://" + host + ":" + port + "/foodOrderingSystem/";
+      if (parametersBuilder.toString().length() > 0)
+      {
+        url = "http://" + host + ":" + port + "/foodorderingsystem/?" + parametersBuilder.toString();
+      } else
+      {
+        url = "http://" + host + ":" + port + "/foodorderingsystem/";
       }
 
       System.out.println("\nSending 'GET' request to URL : " + url);
@@ -55,12 +67,14 @@ public class HttpRequestService {
       String inputLine;
       StringBuffer response = new StringBuffer();
 
-      while ((inputLine = in.readLine()) != null) {
+      while ((inputLine = in.readLine()) != null)
+      {
         response.append(inputLine);
       }
       in.close();
       return response.toString();
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       throw e;
     }
   }
