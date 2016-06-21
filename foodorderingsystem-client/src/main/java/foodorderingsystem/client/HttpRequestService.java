@@ -39,7 +39,8 @@ public class HttpRequestService
           parametersBuilder.append("&");
         }
       }
-      if (parametersBuilder.charAt(parametersBuilder.length() - 1) == '&')
+
+      if (parametersBuilder.length() > 0 && parametersBuilder.charAt(parametersBuilder.length() - 1) == '&')
       {
         parametersBuilder.deleteCharAt(parametersBuilder.length() - 1);
       }
@@ -52,7 +53,7 @@ public class HttpRequestService
         url = "http://" + host + ":" + port + "/foodorderingsystem/";
       }
 
-      System.out.println("\nSending 'GET' request to URL : " + url);
+      // System.out.println("\nSending 'GET' request to URL : " + url);
 
       URL obj = new URL(url);
       HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -61,15 +62,16 @@ public class HttpRequestService
       con.setRequestProperty("User-Agent", "User Agent");
 
       int responseCode = con.getResponseCode();
-      System.out.println("Response Code : " + responseCode);
+      // System.out.println("Response Code : " + responseCode);
 
       BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
       String inputLine;
-      StringBuffer response = new StringBuffer();
+      StringBuilder response = new StringBuilder();
 
       while ((inputLine = in.readLine()) != null)
       {
         response.append(inputLine);
+        response.append("\n");
       }
       in.close();
       return response.toString();
