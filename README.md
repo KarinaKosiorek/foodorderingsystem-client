@@ -27,7 +27,7 @@ port=8080
 
 
 Below there is help text that will be printed when the client will be executed without input arguments:
----------------------------------------------------------------------------------------------
+
 Run options for fosclient:
 ---------------------------------------------------------------------------------------------
 -help											
